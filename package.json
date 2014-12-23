@@ -10,6 +10,15 @@
     "email": "",
     "url": "https://github.com/shuaishuai"
   },
+  "browserify-shim": {
+    "angular": "global:angular",
+    "lodash": "global:_"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
   "engines": {
     "node": ">=0.10.0"
   },

@@ -12,6 +12,7 @@ module.exports = yeoman.generators.Base.extend({
     yeoman.generators.Base.apply(this, arguments);
 
     this.argument('addon_name', { type: String, required: true });
+    this.app_name = this.addon_name.replace('nt_', '');
   },
 
   prompting: function () {
@@ -67,6 +68,30 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('package.json'),
         this
       );
+
+      this.fs.copyTpl(
+        this.templatePath('gulpfile.js'),
+        this.destinationPath('gulpfile.js'),
+        this
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('web/src/**'),
+        this.destinationPath('web/src'),
+        this
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('web/sass/**'),
+        this.destinationPath('web/sass'),
+        this
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('rest/**'),
+        this.destinationPath('rest'),
+        this
+      );
     }
   },
 
@@ -77,5 +102,9 @@ module.exports = yeoman.generators.Base.extend({
         bower: false
       });
     }
+  },
+
+  end: function () {
+    this.spawnCommand('gulp', ['init']);
   }
 });
