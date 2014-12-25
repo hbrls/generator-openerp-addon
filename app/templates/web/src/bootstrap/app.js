@@ -1,8 +1,8 @@
 var angular = require('angular');
 // dependencies
 var services = require('./services');
-//
-var app = angular.module('<%= app_name %>', ['<%= app_name %>.services']);
+// common services if necessary, e.g. MQ
+var app = angular.module('<%= addon_short %>', ['<%= addon_short %>.services', 'nt.services']);
 
 
 module.exports = app;

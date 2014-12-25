@@ -12,7 +12,11 @@ module.exports = yeoman.generators.Base.extend({
     yeoman.generators.Base.apply(this, arguments);
 
     this.argument('addon_name', { type: String, required: true });
-    this.app_name = this.addon_name.replace('nt_', '');
+    this.addon_short = this.addon_name.replace(/^nt_/, '');
+
+    this.addon_depends = '';
+
+    this.timestamp = Math.floor(Date.now() / 1000);
   },
 
   prompting: function () {
@@ -34,6 +38,13 @@ module.exports = yeoman.generators.Base.extend({
 
     prompts.push({
       type: 'confirm',
+      name: 'is_webapp',
+      message: '是一个 Web Site？',
+      default: false
+    });
+
+    prompts.push({
+      type: 'confirm',
       name: 'npm_install',
       message: '是否执行 `npm install`？',
       default: false
@@ -41,6 +52,11 @@ module.exports = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function (props) {
       this.addon_name = props.addon_name;
+
+      this.is_webapp = props.is_webapp;
+      if (this.is_webapp) {
+        this.addon_depends += ", 'nt_site'";
+      }
 
       this.npm_install = props.npm_install;
 
@@ -74,24 +90,43 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('gulpfile.js'),
         this
       );
+    },
 
-      this.fs.copyTpl(
-        this.templatePath('web/src/**'),
-        this.destinationPath('web/src'),
-        this
-      );
+    webapp: function () {
+      if (this.is_webapp) {
+        this.fs.copyTpl(
+          this.templatePath('data_noupdate.xml'),
+          this.destinationPath('data_noupdate.xml'),
+          this
+        );
 
-      this.fs.copyTpl(
-        this.templatePath('web/sass/**'),
-        this.destinationPath('web/sass'),
-        this
-      );
+        this.fs.copyTpl(
+          this.templatePath('apps/**'),
+          this.destinationPath('apps'),
+          this
+        );
 
-      this.fs.copyTpl(
-        this.templatePath('rest/**'),
-        this.destinationPath('rest'),
-        this
-      );
+        this.fs.copyTpl(
+          this.templatePath('web/sass/example/**'),
+          this.destinationPath('web/sass/example'),
+          this
+        );
+
+        this.fs.copyTpl(
+          this.templatePath('web/src/**'),
+          this.destinationPath('web/src'),
+          this
+        );
+
+        // 由于 Mako 和 _.template 之间的冲突，没有用模板，需要自己改
+        // REPLACE_ADDON_NAME
+        // REPLACE_ADDON_SHORT
+        this.fs.copy(
+          this.templatePath('web/*.html'),
+          this.destinationPath('web'),
+          this
+        );
+      }
     }
   },
 
@@ -106,5 +141,8 @@ module.exports = yeoman.generators.Base.extend({
 
   end: function () {
     this.spawnCommand('gulp', ['init']);
+
+    this.log(chalk.red('你要注意以下几件事情：'));
+    this.log('1. blahblah');
   }
 });

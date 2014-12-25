@@ -1,5 +1,5 @@
 var angular = require('angular');
-var services = angular.module('<%= app_name %>.services', []);
+var services = angular.module('nt.services', []);
 
 
 module.exports = services;

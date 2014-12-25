@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 
 
 class rest(osv.osv_memory):
-    _name = 'nt.<%= app_name %>.rest'
+    _name = 'nt.<%= addon_short %>.rest'
 
     @json_request
     def js_http_post(self, cr, uid, request_context):

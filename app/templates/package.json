@@ -6,9 +6,21 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "browserify-shim": {
+    "angular": "global:angular",
+    "lodash": "global:_",
+    "openerp": "global:openerp",
+    "stomp": "global:stomp"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
   "dependencies": {
     "angular": "^1.3.8",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "stompjs": "^2.3.3"
   },
   "devDependencies": {
     "browserify": "^7.0.3",

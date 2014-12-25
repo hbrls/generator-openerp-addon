@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="1">
+    <record id="nt_site_tms" model="nt.site.site">
+      <field name="name"><%= addon_name %></field>
+      <field name="code"><%= addon_name %></field>
+      <!-- 主站（eshop）的优先级是 10，因此需要在 10 之前被匹配 -->
+      <field name="priority" eval="5"/>
+      <field name="url_pattern">^/<%= addon_short %>/(.*)$</field>
+      <field name="description"><%= addon_name %></field>
+    </record>
+
+    <record id="nt_site_package_<%= addon_short %>" model="nt.site.package">
+      <field name="name"><%= addon_name %>功能包</field>
+      <field name="type">function</field>
+      <field name="description"><%= addon_name %>功能包</field>
+    </record>
+
+
+    <record id="nt_site_package_<%= addon_short %>_theme" model="nt.site.package">
+      <field name="name"><%= addon_name %>主题包</field>
+      <field name="type">theme</field>
+      <field name="description"><%= addon_name %>主题包</field>
+      <field name="theme_url"><%= addon_short %></field>
+      <field name="theme_root">/mnt/source/nt_addons/<%= addon_name %>/web</field>
+    </record>
+
+    <!-- 自动把本 addon 默认需要的主题包装好 -->
+    <!-- FIXME: 但是好像没用？ -->
+    <record id="nt_site_theme_<%= addon_short %>" model="nt.site.site.theme_line">
+      <field name="site_id" ref="nt_site_<%= addon_short %>" />
+      <field name="package_id" ref="nt_site_package_<%= addon_short %>_theme" />
+    </record>
+  </data>
+</openerp>

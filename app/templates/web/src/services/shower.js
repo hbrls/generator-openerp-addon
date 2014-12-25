@@ -9,14 +9,14 @@ function _enhance(data) {
 
 
 services
-  .factory('Example', function ($http, $q) {
+  .factory('Shower', function ($http, $q) {
     return {
       api_call: function () {
-        $http.post('/api/nt.<%= app_name %>.rest/js_api_call.api', JSON.stringify({}))
-          .success(function (result) {
+        $http.post('/api/nt.<%= addon_short %>.rest/js_api_call.api', JSON.stringify({}))
+          .success(function (data, status, headers, config) {
             var data = result.data;
           })
-          .error(function (err) {
+          .error(function (data, status, headers, config) {
             console.error(err);
           });
       }
