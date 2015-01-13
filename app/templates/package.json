@@ -25,7 +25,6 @@
   "devDependencies": {
     "browserify": "^7.0.3",
     "browserify-shim": "^3.8.1",
-    "del": "^1.1.0",
     "gulp": "^3.8.10",
     "gulp-cssshrink": "^0.1.4",
     "gulp-jshint": "^1.9.0",

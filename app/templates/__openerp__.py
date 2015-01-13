@@ -15,6 +15,17 @@
     ],
     'demo_xml': [],
     'test': [],
+    <% if (!is_website) { %>
+    'qweb': [
+        'static/xml/simple.xml'
+    ],
+    'js': [
+        'static/js/example.js'
+    ],
+    'css': [
+        'static/css/example.min.css'
+    ],
+    <% } %>
     'installable': True,
     'active': False,
 }

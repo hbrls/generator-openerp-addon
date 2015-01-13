@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <menuitem name="CHILD OF WHICH TOP MENU" id="base.WHICH_TOP_MENU"/>
+
+    <menuitem name="ADDON ROOT" id="<%= addon_name %>_root" parent="base.WHICH_TOP_MENU" />
+
+    <record model="ir.actions.client" id="<%= addon_name %>.ca_EXAMPLE_FUNCTION"><!-- ca => client action -->
+      <field name="name">ADDON CUSTOM ACTION</field>
+      <field name="tag"><%= addon_name %>.ca_EXAMPLE_FUNCTION</field>
+    </record>
+    <menuitem name="ADDON CUSTOM ACTION" id="menu_EXAMPLE_FUNCTION" parent="<%= addon_name %>_root" sequence="<%= timestamp %>" action="<%= addon_name %>.ca_EXAMPLE_FUNCTION" />
+  </data>
+</openerp>

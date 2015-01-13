@@ -38,7 +38,7 @@ module.exports = yeoman.generators.Base.extend({
 
     prompts.push({
       type: 'confirm',
-      name: 'is_webapp',
+      name: 'is_website',
       message: '是一个 Web Site？',
       default: false
     });
@@ -53,9 +53,12 @@ module.exports = yeoman.generators.Base.extend({
     this.prompt(prompts, function (props) {
       this.addon_name = props.addon_name;
 
-      this.is_webapp = props.is_webapp;
-      if (this.is_webapp) {
+      this.is_website = props.is_website;
+      if (this.is_website) {
         this.addon_depends += ", 'nt_site'";
+        this.static_dir = 'web';
+      } else {
+        this.static_dir = 'static';
       }
 
       this.npm_install = props.npm_install;
@@ -92,8 +95,36 @@ module.exports = yeoman.generators.Base.extend({
       );
     },
 
-    webapp: function () {
-      if (this.is_webapp) {
+    oeca: function () {
+      if (!this.is_website) {
+        this.fs.copyTpl(
+          this.templatePath('menu.xml'),
+          this.destinationPath('menu.xml'),
+          this
+        );
+
+        this.fs.copyTpl(
+          this.templatePath('static/xml/**'),
+          this.destinationPath('static/xml'),
+          this
+        );
+
+        this.fs.copyTpl(
+          this.templatePath('src/**'),
+          this.destinationPath('static/src'),
+          this
+        );
+
+        this.fs.copyTpl(
+          this.templatePath('sass/example/**'),
+          this.destinationPath('static/sass/example'),
+          this
+        );
+      }
+    },
+
+    website: function () {
+      if (this.is_website) {
         this.fs.copyTpl(
           this.templatePath('data_noupdate.xml'),
           this.destinationPath('data_noupdate.xml'),
@@ -107,13 +138,13 @@ module.exports = yeoman.generators.Base.extend({
         );
 
         this.fs.copyTpl(
-          this.templatePath('web/sass/example/**'),
+          this.templatePath('sass/example/**'),
           this.destinationPath('web/sass/example'),
           this
         );
 
         this.fs.copyTpl(
-          this.templatePath('web/src/**'),
+          this.templatePath('src/**'),
           this.destinationPath('web/src'),
           this
         );

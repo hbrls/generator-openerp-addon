@@ -14,7 +14,7 @@ services
       api_call: function () {
         $http.post('/api/nt.<%= addon_short %>.rest/js_api_call.api', JSON.stringify({}))
           .success(function (data, status, headers, config) {
-            var data = result.data;
+            var result = data.data;
           })
           .error(function (data, status, headers, config) {
             console.error(err);
@@ -22,6 +22,3 @@ services
       }
     };
   });
-
-
-module.exports = {};
