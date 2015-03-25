@@ -55,7 +55,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.is_website = props.is_website;
       if (this.is_website) {
-        this.addon_depends += ", 'nt_site'";
+        this.addon_depends += ", 'nt_site', 'nt_site_weixin2'";
         this.static_dir = 'web';
       } else {
         this.static_dir = 'static';
@@ -120,6 +120,12 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath('static/sass/example'),
           this
         );
+
+        this.fs.copyTpl(
+          this.templatePath('sass/vendor/**'),
+          this.destinationPath('static/sass/vendor'),
+          this
+        );
       }
     },
 
@@ -132,8 +138,8 @@ module.exports = yeoman.generators.Base.extend({
         );
 
         this.fs.copyTpl(
-          this.templatePath('apps/**'),
-          this.destinationPath('apps'),
+          this.templatePath('page/**'),
+          this.destinationPath('page'),
           this
         );
 
@@ -155,6 +161,12 @@ module.exports = yeoman.generators.Base.extend({
         this.fs.copy(
           this.templatePath('web/*.html'),
           this.destinationPath('web'),
+          this
+        );
+
+        this.fs.copy(
+          this.templatePath('web/js/**'),
+          this.destinationPath('web/js'),
           this
         );
       }

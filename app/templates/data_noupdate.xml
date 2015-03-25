@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
   <data noupdate="1">
-    <record id="nt_site_tms" model="nt.site.site">
+    <record id="nt_site_<%= addon_short %>" model="nt.site.site">
       <field name="name"><%= addon_name %></field>
       <field name="code"><%= addon_name %></field>
       <!-- 主站（eshop）的优先级是 10，因此需要在 10 之前被匹配 -->
