@@ -2,7 +2,8 @@
 from functools import update_wrapper
 from tornado.web import HTTPError
 import logging
-from .models import User, Admin
+from openerp import tools
+from .models import User, AnonymousUser, Admin, get_current_user
 
 
 _logger = logging.getLogger(__name__)
@@ -10,15 +11,20 @@ _logger = logging.getLogger(__name__)
 
 def route(f):
     def wrapped_function(view, cr, uid, request_context):
-        _logger.info('initializing a standard view ...')
+        _logger.debug('initializing a standard view ...')
 
         ctx = {}
         request_context.ctx = ctx
 
-        _logger.info('elaborating the view context ...')
+        ctx.update({'debug_mode': tools.config.get('debug_mode', False)})
+
+        current_user = get_current_user(view.pool, cr, uid, request_context)
+        ctx.update({'current_user': current_user})
+
+        _logger.debug('elaborating the view context ...')
         f(view, cr, uid, request_context)
 
-        _logger.info('the view is ready ...')
+        _logger.debug('the view is ready ...')
     return update_wrapper(wrapped_function, f)
 
 
