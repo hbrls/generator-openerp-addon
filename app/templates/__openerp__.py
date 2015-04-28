@@ -7,7 +7,7 @@
 <%= addon_name %> 描述
     """,
     'author': 'NextTao',
-    'depends': ['base'<%= addon_depends %>],
+    'depends': ['web', 'base'<%= addon_depends %>],
     'web_depends': [],
     'init_xml': [],
     'data': [

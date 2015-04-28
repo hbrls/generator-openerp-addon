@@ -3,21 +3,14 @@ var ADDON_SHORT = '<%= addon_short %>';
 
 
 var gulp = require('gulp');
-var transform = require('vinyl-transform');
 var rename = require('gulp-rename');
 var sass = require('gulp-ruby-sass');
 var cssshrink = require('gulp-cssshrink');
 var minifyCSS = require('gulp-minify-css');
-var jshint = require('gulp-jshint');
-var browserify = require('browserify');
-var uglify = require('gulp-uglify');
 
 
 gulp.task('jscopy', function () {
   return gulp.src([
-      'node_modules/angular/angular.js',
-      'node_modules/angular/angular.min.js',
-      'node_modules/angular/angular.min.js.map',
       'node_modules/lodash/dist/lodash.min.js',
       'node_modules/stompjs/lib/stomp.min.js',
     ])
@@ -69,39 +62,10 @@ gulp.task('css:example', complie_css('example'));
 gulp.task('css', ['css:example']);
 
 
-gulp.task('jshint', function () {
-  return gulp
-    .src('<%= static_dir %>/src/**/*.js')
-    .pipe(jshint())
-      .pipe(jshint.reporter('default'))
-      .pipe(jshint.reporter('fail'));
-});
+gulp.task('jscs', shell.task(['npm run jscs -s'], { quiet: true, errorMessage: '\nERROR_TEMPLATE' }));
 
+gulp.task('jsxhint', ['jscs'], shell.task(['npm run jsxhint -s'], { quiet: true, errorMessage: '\nERROR_TEMPLATE' }));
 
-var browserified = transform(function (filename) {
-  var b = browserify(filename);
-  return b.bundle();
-});
+gulp.task('js', ['jsxhint'], shell.task(['npm run browserify -s', 'npm run uglify -s'], { quiet: true, errorMessage: '\nERROR_TEMPLATE' }));
 
-
-function compile_js(app_name) {
-  return function () {
-    return gulp
-      .src('<%= static_dir %>/src/' + app_name + '*.js')
-      .pipe(browserified)
-      .pipe(gulp.dest('<%= static_dir %>/js'));
-      // 暂时没有做 sourcemap，不压缩
-      // .pipe(uglify())
-      //   .pipe(rename(app_name + '.min.js'))
-      //   .pipe(gulp.dest('<%= static_dir %>/js'));
-  };
-}
-
-
-gulp.task('js:example', ['jshint'], compile_js('example'));
-gulp.task('js', ['jshint'], compile_js(''));
-
-
-gulp.task('default', ['jshint']);
-gulp.task('build', ['css', 'js']);
-gulp.task('init', ['jscopy', 'csscopy', 'fontcopy', 'build']);
+gulp.task('build', ['jsxhint'], shell.task(['npm run buildjs -s'], { quiet: true, errorMessage: '\nERROR_TEMPLATE' }));

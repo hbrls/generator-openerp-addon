@@ -1,7 +1,6 @@
-var stomp = require('stomp');
+var stomp = require('stompjs');
 
 
-var client;
 var emit = function (event, data) {
   console.log(event, data);
 };
@@ -18,8 +17,10 @@ function _dispatcher(message) {
   var msg = JSON.parse(message.body);
 
   var p;
+
   for (var i = 0; i < DISPATCHERS.length; i++) {
     p = DISPATCHERS[i];
+
     if (msg.message_type === p.t) {
       if (p.f) {
         if (p.f(msg.data)) {
@@ -49,6 +50,7 @@ function make_client() {
 
   client.connect(USERNAME, PASSWORD,
     function (frame) {
+      /* jshint unused:vars */
       // console.log(frame);
 
       client.subscribe(CHANNEL, _dispatcher);
