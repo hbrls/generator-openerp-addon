@@ -138,12 +138,6 @@ module.exports = yeoman.generators.Base.extend({
         );
 
         this.fs.copyTpl(
-          this.templatePath('page/**'),
-          this.destinationPath('page'),
-          this
-        );
-
-        this.fs.copyTpl(
           this.templatePath('sass/example/**'),
           this.destinationPath('web/sass/example'),
           this
