@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- template example
+        <record id="{{ addon_name }}_{{ widget_name }}_widget" model="ir.actions.client">
+            <field name="tag">{{ addon_name }}_{{ widget_name }}_widget</field>
+        </record>
+        -->
+
+        <!-- example -->
+        <record id="<%= addon_name %>_<%= widget_name %>_widget" model="ir.actions.client">
+            <field name="tag"><%= addon_name %>_<%= widget_name %>_widget</field>
+        </record>
+
+        <!-- template direct to this menu from another addon
+        <menuitem ... action="{{ addon_name }}.{{ addon_name }}_{{ widget_name }}_widget" />
+        -->
+
+        <!-- direct to this menu from another addon
+        <menuitem ... action="<%= addon_name %>.<%= addon_name %>_<%= widget_name %>_widget" />
+        -->
+    </data>
+</openerp>

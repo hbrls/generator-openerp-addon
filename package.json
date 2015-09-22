@@ -1,14 +1,14 @@
 {
-  "name": "generator-openerp-addon",
-  "version": "0.0.0",
-  "description": "Yeoman generator",
+  "name": "generator-openerp",
+  "version": "0.1.0",
+  "description": "Yeoman generator for OpenERP",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "shuaishuai/generator-openerp-addon",
+  "repository": "hbrls/generator-openerp",
   "author": {
     "name": "Albert",
-    "email": "",
-    "url": "https://github.com/shuaishuai"
+    "email": "shuaizhexu@gmail.com",
+    "url": "https://github.com/hbrls"
   },
   "browserify-shim": {
     "angular": "global:angular",
@@ -29,17 +29,17 @@
     "app"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "openerp"
   ],
-  "dependencies": {
-    "yeoman-generator": "^0.18.0",
-    "chalk": "^0.5.0",
+  "devDependencies": {
+    "chalk": "^0.5.1",
+    "lodash": "^3.10.1",
+    "mocha": "*",
+    "yeoman-generator": "^0.18.10",
     "yosay": "^0.3.0"
   },
-  "devDependencies": {
-    "mocha": "*"
-  },
   "peerDependencies": {
-    "yo": ">=1.0.0"
+    "yo": ">=1.4.8"
   }
 }

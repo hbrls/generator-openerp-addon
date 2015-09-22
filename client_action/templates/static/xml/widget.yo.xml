@@ -1,0 +1,4 @@
+<templates>
+  <div t-name="<%= addon_name %>_<%= widget_name %>_widget" class="<%= widget_class %> bs">
+  </div>
+</templates>
