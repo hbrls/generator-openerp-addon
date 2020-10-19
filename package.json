@@ -1,45 +1,17 @@
 {
-  "name": "generator-openerp",
-  "version": "0.1.0",
-  "description": "Yeoman generator for OpenERP",
-  "license": "MIT",
-  "main": "app/index.js",
-  "repository": "hbrls/generator-openerp",
-  "author": {
-    "name": "Albert",
-    "email": "shuaizhexu@gmail.com",
-    "url": "https://github.com/hbrls"
-  },
-  "browserify-shim": {
-    "angular": "global:angular",
-    "lodash": "global:_"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
+  "name": "@arknights/nerv",
+  "version": "0.0.1",
+  "description": "NERV",
+  "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "start-proxy": "node ./packages/proxy/index.js"
   },
-  "files": [
-    "app"
-  ],
-  "keywords": [
-    "yeoman-generator",
-    "openerp"
-  ],
-  "devDependencies": {
-    "chalk": "^0.5.1",
-    "lodash": "^3.10.1",
-    "mocha": "*",
-    "yeoman-generator": "^0.18.10",
-    "yosay": "^0.3.0"
-  },
-  "peerDependencies": {
-    "yo": ">=1.4.8"
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.1",
+    "http-proxy": "1.18.1",
+    "http-proxy-middleware": "1.0.6",
+    "vanilla.js": "0.2.3"
   }
 }
