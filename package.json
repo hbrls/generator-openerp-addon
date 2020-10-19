@@ -1,0 +1,17 @@
+{
+  "name": "@arknights/nerv",
+  "version": "0.0.1",
+  "description": "NERV",
+  "main": "index.js",
+  "scripts": {
+    "start-proxy": "node ./packages/proxy/index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.1",
+    "http-proxy": "1.18.1",
+    "http-proxy-middleware": "1.0.6",
+    "vanilla.js": "0.2.3"
+  }
+}
