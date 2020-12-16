@@ -28,6 +28,7 @@ app.use('/',
   function (req, res, next) {
     if (req.method === 'OPTIONS') {
       res.header('Access-Control-Allow-Headers', '*');
+      res.header('Access-Control-Allow-Method', '*');
       res.header('Access-Control-Allow-Origin', '*');
       return res.send();
     }
